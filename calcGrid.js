@@ -10,10 +10,15 @@ function display(input) {
 
     for (var i = 0; i < input; i++) {
         var segIterations = seg.length - 1;
+        var index = 0;
+        // This is a little bad in practice, but the code functions as desired.
+        // Need to add 2 each time to keep track of the "original" segments. By adding subdivisions,
+        // we are adding two more guide lines.
         for (var j = 0; j < segIterations; ++j) {
-            var start = seg[j];
-            var end = seg[j + 1];
-            seg.splice(j + 1, 0, start+((end-start)*(1-ratio)), start+(end-start)*ratio);
+            var start = seg[index + j];
+            var end = seg[index + j + 1];
+            seg.splice(j + 1 + index, 0, start+((end-start)*(1-ratio)), start+(end-start)*ratio);
+            index+=2;
         }
     }
     return seg;
