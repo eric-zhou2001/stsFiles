@@ -24,12 +24,13 @@ function multiply(digits) {
 }
 
 function permute(num1,num2,num3){
+    var offset = 3 - num1;
     if (num2==num1) {
         var digits = num3.split("");
         indices.push(digits);
         return;
     }
-    for (var i=0; i<num1; i++) {
+    for (var i=0; i<num1 + offset; i++) {
         permute(num1,num2+1,num3+i);
     }
 }
@@ -37,10 +38,11 @@ function permute(num1,num2,num3){
 // Uncomment above when testing with photoshop
 
 // For testing purposes now, we can start to change the input array manually.
-var input = [1,4,7];
+var input = [0.382,0.236,0.382];
 
 // Creates master index
-permute(input.length, 0,"");
+// First argument: number of subdivisions (?)
+permute(2, 0,"");
 
 // Create permutation products according to master index
 multiply(input);
@@ -48,4 +50,5 @@ multiply(input);
 for (var i=0; i<indices.length; ++i) {
     sum(i+1);
 }
+console.log(permutationProduct);
 console.log(permutationSum);

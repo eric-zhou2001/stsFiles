@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "extendscript-debug",
+            "request": "launch",
+            "name": "Testing Partitions",
+            "program": "${workspaceFolder}/First Layout column style counter guides test 2.jsx",
+            "stopOnEntry": false,
+            "targetSpecifier": "premierepro-13.0",
+            "engineName": "main"
+        },
+        {
+            "type": "pwa-node",
+            "name": "Run Current File",
+            "request": "launch",
+            "program": "${workspaceFolder}\\First Layout column style counter guides test 2.jsx"
+        }
+    ]
+}

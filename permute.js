@@ -6,10 +6,10 @@ function permute(num1,num2,num3){
         permutations.push(digits);
         return;
     }
-    for (var i=0; i<num1; i++) {
+    for (var i=0; i<num1+1; i++) {
         permute(num1,num2+1,num3+i);
     }
 }              
-permute(3,0,"");
-
+permute(2,0,"");
+console.log(permutations.length);
 console.log(permutations);
