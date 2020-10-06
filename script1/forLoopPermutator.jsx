@@ -1,3 +1,34 @@
+/**
+ * Important note: guides are stored in this collection/array that can be accessed by doing
+ * activeDocument.app.guides. This returns an array, in which we can access certain guides
+ * by array indexing (app.guides[i], for example if we are to iterate). The actual addition
+ * or creation of a new guide is done like so:
+ * 
+ * app.guides.add([Direction, so HORIZONTAL vs. VERTICAL], [x/y positioning]);
+ * 
+ * Oddly enough, guides are sequentially with increasing index. Let's say we add this guide first:
+ * 
+ * (Direction.HORIZONTAL, 100)
+ * 
+ * This guide will be stored (assuming there are no other guides in the guide collection)
+ * at guides[0], since it is the first guide. Let's say we now add this guide:
+ * 
+ * (Direction.HORIZONTAL, 200)
+ * 
+ * This guide will now be stored at guides[1], since there is already a guide stored at
+ * guides[0]. By doing guides[0], we can still access the guide originally placed at
+ * index 0 (in other words, the first guide inserted). This repeats itself onwards.
+ * 
+ * To remove the newest guide, we have to access the LAST guide in the guide collection
+ * (as in, the most recent addition). So, we can do guides[guides.length - 1] to access
+ * said guide. As long as we keep this in mind, the methods that interact with the
+ * guides will be more or less straightforward.
+ * 
+ * Another note, the [insertSomeGuide].remove() method is sort of hidden in the actual
+ * JavaScript Photoshop documentation. Therefore, I mainly stuck with this documentation:
+ * https://theiviaxx.github.io/photoshop-docs/Photoshop/Guide.html
+ */
+
 // window setup
 
 var currentStatus = app.activeDocument.activeHistoryState;
@@ -48,7 +79,8 @@ var scrollbar2Label = scrollbarLabelGroup.add("statictext",undefined,"Vertical")
 scrollbar2Label.characters = 4
 var dropDownLabel = scrollbarLabelGroup.add("statictext",undefined,"Presets");
 
-
+// Counts the number of guides with the specific direction provided by user
+// currently on page.
 function numGuides(direction) {
 	var guides = app.activeDocument.guides;
 	var counter = 0;
@@ -60,12 +92,25 @@ function numGuides(direction) {
 	return counter;
 }
 
-// TODO Debug the addition/deletion of the guides. Something is going on, whenever I subtract one guide it ends up deleting like
-// every single guide. Probably has to do with how we are counting the number of guides, so check
-// - numGuides function
-// - numDivisions
-// - initialGuides / endGuides
-// Adding them is also causing some weird issues with where the guides are being placed.. Maybe debug this as well?
+// Delete Guide function. Will store the guides to delete in an array that is returned
+// back to its respective function call.
+function deleteGuides(dir, numDivisions) {
+	var guides = app.activeDocument.guides;
+	var guidesToDelete = [];
+	for (var j = 0; j < guides.length; ++j) {
+		var delGuide = guides[guides.length - j - 1];
+		if (delGuide.direction == dir) {
+			if (guidesToDelete.length == numDivisions) {
+				break;
+			} else {
+				guidesToDelete.push(delGuide);
+			}
+		} else {
+			continue;
+		}
+	}
+	return guidesToDelete;
+}
 
 // scrollbar counters grouping
 var scrollbar1Counter = scrollbarCounterGroup.add("statictext",undefined,"1")
@@ -83,17 +128,7 @@ scrollbar1.onChange = function() {
 		// If numDivisions is greater than zero, that means the num of initial guides is
 		// GREATER than the num of desired guides (end guides). Therefore, must remove
 		// some guides from document then.
-		for (var i = 0; i < numDivisions; ++i) {
-			var guidesToDelete = [];
-			for (var j = 0; j < guides.length; ++j) {
-				var delGuide = guides[guides.length - j - 1];
-				if (delGuide.direction == Direction.HORIZONTAL) {
-					guidesToDelete.push(delGuide);
-				} else {
-					continue;
-				}
-			}
-		}
+		var guidesToDelete = deleteGuides(Direction.HORIZONTAL, numDivisions);
 
 		for (var i = 0; i < guidesToDelete.length; ++i) {
 			guidesToDelete[i].remove();
@@ -123,17 +158,7 @@ scrollbar2.onChange = function() {
 		// If numDivisions is greater than zero, that means the num of initial guides is
 		// GREATER than the num of desired guides (end guides). Therefore, must remove
 		// some guides from document then.
-		for (var i = 0; i < numDivisions; ++i) {
-			var guidesToDelete = [];
-			for (var j = 0; j < guides.length; ++j) {
-				var delGuide = guides[guides.length - j - 1];
-				if (delGuide.direction == Direction.VERTICAL) {
-					guidesToDelete.push(delGuide);
-				} else {
-					continue;
-				}
-			}
-		}
+		var guidesToDelete = deleteGuides(Direction.VERTICAL, numDivisions);
 
 		for (var i = 0; i < guidesToDelete.length; ++i) {
 			guidesToDelete[i].remove();
