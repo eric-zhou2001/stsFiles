@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--Example 1, the Console Tag-->
+    <!--
+        Load up Google Chrome (majority of browsers have this, we use chrome to
+        keep things simple.
+
+        Top-Right corner, three dots. Find "More Tools," which should open a sidebar
+        up. Then, click "Developer Tools." Then, navigate to the Console tab.
+
+        Tip: If this does not work, we can also do these methods
+        1.) Right click the page we are on, then select "Inspect"
+        2.) For ease of access, do CTRL + Shift + I (if on Mac, CMD + SHIFT + I)
+
+        Now, type in the following:
+            console.log("Hello World!")
+        - console.log is a method that writes to the console. Each web page will
+          have this. Good for debugging.
+        - Can now also do basic operations/coding.
+    -->
+
+    <!--Example 2, script tag-->
+    <script class="ex-2" type="________">
+
+    </script>
+    <!--
+        Take a look at the script tag above, with the class titled "ex-2."
+        This is the second way we can inject JavaScript into a web page.
+        Instead of the underscores, insert "type/javascript" into it.
+
+        1.) Notice how, if we are using a code editor, the underlines go away.
+            we are essentially telling the html document that this code is 
+            JavaScript.
+        2.) Similar to before in the console.log example, let's type:
+                console.log("Hello world!")
+            Place this between the angular brackets (these things: <> [INSERT HERE] <>)
+        3.) Open up the web page, and then open up the console using the
+            methods above.
+
+        We are now "storing" JavaScript code inside an html document, and this
+        JavaScript will ALWAYS run if we open the html document. Now, let's add
+        the following lines of code within that angular brackets (we can delete
+        the console.log is necessary as well):
+            console.log(Date.now())
+        
+        Refresh the page now. Cool!
+
+        Main point of JavaScript: dynamic and interactive language. The page
+        is updating by itself without having to manually change things!
+
+        Once we are done, comment out the above script tag or just delete it.
+    -->
+
+    <!--Example 3, src attribute-->
+    <script class="ex-3" src="[_______]"></script>
+    <!--
+        Look at the above example. This time, we don't have the text attribute before.
+        Look inside the folder examples. Notice the file called "app.js." Type this
+        into the [_____] area, between the quotation marks:
+            "./app.js"
+
+        Open up app.js as well.
+
+        Now, open up this HTML page.
+
+        We should see nothing at first, right? Open up the console again and look
+        at the message.
+
+        We're running JavaScript code externally! It's not even explicitly written
+        in the HTML code!
+
+        So, it's like linking an external stylesheet in CSS. This is incredibly
+        important, since this is how we can manage our code without it becoming a
+        jumbled mess.
+
+        Where do we store this script/src tag? Good practice says <head> tag.
+        Treat it like we are linking an external stylesheet.
+    -->
+</body>
+</html>
