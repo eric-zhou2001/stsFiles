@@ -42,7 +42,7 @@ var input = [0.382,0.236,0.382];
 
 // Creates master index
 // First argument: number of subdivisions (?)
-permute(2, 0,"");
+permute(5, 0,"");
 
 // Create permutation products according to master index
 multiply(input);
@@ -50,5 +50,5 @@ multiply(input);
 for (var i=0; i<indices.length; ++i) {
     sum(i+1);
 }
-console.log(permutationProduct);
+
 console.log(permutationSum);
