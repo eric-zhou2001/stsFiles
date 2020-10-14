@@ -1,7 +1,7 @@
 /**
  * Instructor note: this page should be left blank, but we will have notes here.
  * 
- * The test sections should be left here on the page, but the DEMO sections should
+ * The example sections should be left here on the page, but the DEMO sections should
  * be typed out by the instructor themselves to let students have interactive
  * experiences with it.
  * ------------------------------------------------------------------------------
@@ -10,7 +10,7 @@
  * Question: how do we write statements in JavaScript? Do we need semi-colons to signal the
  * end of a statement?
  * 
- * Test:
+ * Example:
  */
 
 console.log("Do I need a semi-colon??")
@@ -127,3 +127,46 @@ sayBye("No! Don't go yet!"); // :(
  function addTwo(num1, num2) {
      return num1+num2;
  }
+
+ /**
+  * -----------------------------------------------------------------------
+  * Exercise 2.1 - Alternative Function Declarations
+  * 
+  * JavaScript has the option to specify functions in many different ways. We
+  * have seen the function keyword declaration, so let's take a quick peek into
+  * JavaScript's (1) arrow function, (2) anonymous functions.
+  * 
+  * 1) Arrow Functions
+  * 
+  * EXAMPLE:
+  */
+var arrowFunctionExample = () => {
+    console.log("This is an example of an arrow function!");
+}
+/**
+ * Notice the => arrow indicator. There is a lot of nuance in these functions,
+ * so be careful when using them. We will stick to function for this workshop.
+ * 
+ * 2) Anonymous Functions
+ * 
+ * EXAMPLE:
+ */
+
+ var anonymousFunctionExample = function() {
+     console.log("I'm anonymous!");
+ }
+
+ /**
+  * Anonymous functions have no clear name. Arrow functions resemble that since
+  * there is no clear name specified. To access these functions, we can run these 
+  * commands:
+  * 
+  * DEMO:
+  */
+
+arrowFunctionExample();
+anonymousFunctionExample();
+
+/**
+ * We have to call them by their respective variable name.
+ */
