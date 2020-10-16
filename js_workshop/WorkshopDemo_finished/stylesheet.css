@@ -1,3 +1,13 @@
-#sts-logo {
+
+
+.flex-container{
+    display:flex;
+    justify-content: center;
+}
+
+/**
+Find a better way than just setting it to a size of 100??
+*/
+#sts-logo-hover {
     height: 100px;
 }

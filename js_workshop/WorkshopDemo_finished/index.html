@@ -14,21 +14,28 @@
         the HTML/CSS will not be overwhelming.
     </h1>
     <br>
-    <div class="exercise">
-        <h1>Event Listener: OnClick</h1>
-        <button id="btn-1" onclick="incSizeLogo()">Increase the Photo!</button>
-        <button id="btn-2" onclick="decSizeLogo()">Decreaase the Photo!</button>
-        <br>
-        <img id="sts-logo-click" src="./STS.png" alt="STS Photo">
-    </div>
-
-    <div class="exercise">
-        <h1>Event Listener: OnHover</h1>
-        <h2>OnMouseOver Example 1:</h2>
-        <img id="sts-logo-hover" src="./STS.png" alt="STS Photo" onmouseover="floatRight(this)">
-
-        <h2>OnMouseOver vs. OnMouseOut</h2>
-        <img id="sts-logo-leave" src="./STS.png" alt="STS Photo" onmouseover="doubleSize(this)" onmouseout="halfSize(this)">
+    <div class="flex-container">
+        <div class="center">
+            <div class="exercise">
+                <h1>Event Listener: OnClick</h1>
+                <button id="btn-1" onclick="incSizeLogo()">Increase the Photo!</button>
+                <button id="btn-2" onclick="decSizeLogo()">Decrease the Photo!</button>
+                <br>
+                <img id="sts-logo-click" src="./STS.png" alt="STS Photo">
+            </div>
+        
+            <div class="exercise">
+                <h1>Event Listener: OnMouseOver</h1>
+                <h2>OnMouseOver Example 1:</h2>
+                <img id="sts-logo-hover" src="./STS.png" alt="STS Photo" onmouseover="floatRight(this)">
+            </div>
+            <!--Why is it flipping back and forth??-->
+            <div class="exercise">
+                <h1>Event Listener: OnMouseOut</h1>
+                <h2>OnMouseOver vs. OnMouseOut</h2>
+                <img id="sts-logo-leave" src="./STS.png" alt="STS Photo" onmouseover="doubleSize(this)" onmouseout="halfSize(this)">
+            </div>
+        </div>
     </div>
 </body>
 </html>
