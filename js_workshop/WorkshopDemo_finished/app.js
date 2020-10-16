@@ -90,3 +90,17 @@ function doubleSize(logo) {
 function halfSize(logo) {
     logo.style.width = (logo.clientWidth* (1/2)) + "px";
 }
+
+// Part 3: more complex event listeners.
+function displayLines() {
+  var numLines = document.forms["display-lines"]["lines"].value;
+  console.log("Will now display " + numLines + " number of lines!");
+  var lineContainer = document.getElementById("lines");
+  // Additional, funky logic!
+  if (numLines < 0) {
+    console.log("Error! please enter a non negative number!");
+  }
+  for (var i = 0; i < numLines; ++i) {
+    lineContainer.innerText = lineContainer.innerText + "-";
+  }
+}

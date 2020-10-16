@@ -35,6 +35,16 @@
                 <h2>OnMouseOver vs. OnMouseOut</h2>
                 <img id="sts-logo-leave" src="./STS.png" alt="STS Photo" onmouseover="doubleSize(this)" onmouseout="halfSize(this)">
             </div>
+
+            <div class="exercise">
+                <h1>Complicated Event Listeners</h1>
+                <form id="display-lines">
+                    Enter Number of Lines to Display: <input type="number" name="lines"><br>
+                    <input type="button" onclick="displayLines()" value="Display Lines">
+                </form>
+
+                <div id="lines"></div>
+            </div>
         </div>
     </div>
 </body>
