@@ -40,8 +40,10 @@ document.getElementsByClassName("...");
  /**
   * Actual code to play with:
   */
+
+  // PART ONE: CLICK
 function incSizeLogo() {
-  var logo = document.getElementById("sts-logo");
+  var logo = document.getElementById("sts-logo-click");
   console.log("Button is clicked.");
   var currentWidth = logo.clientWidth;
   var currentHeight = logo.clientHeight;
@@ -54,7 +56,7 @@ function incSizeLogo() {
 }
 
 function decSizeLogo() {
-  var logo = document.getElementById("sts-logo");
+  var logo = document.getElementById("sts-logo-click");
   console.log("Button is clicked.");
   var currentWidth = logo.clientWidth;
   var currentHeight = logo.clientHeight;
@@ -64,4 +66,27 @@ function decSizeLogo() {
     logo.style.width = (currentWidth - 50) + "px";
     logo.style.height = (currentHeight - 50) + "px";
   }
+}
+
+// PART 2: HOVER
+
+// Talk about passing (this) as an argument
+function floatRight(logo) {
+    console.log("Hovering over Logo!");
+    // Demonstrate above
+    var float = logo.style.cssFloat;
+    if (float == "right") {
+        logo.style.cssFloat = "left";
+    } else {
+        logo.style.cssFloat = "right"
+    }
+}
+
+// Part 2: Hover vs. Leave
+function doubleSize(logo) {
+    logo.style.width = (logo.clientWidth* 2) + "px";
+}
+
+function halfSize(logo) {
+    logo.style.width = (logo.clientWidth* (1/2)) + "px";
 }
