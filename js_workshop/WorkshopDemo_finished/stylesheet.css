@@ -1,5 +1,3 @@
-
-
 .flex-container{
     display:flex;
     justify-content: center;
@@ -11,3 +9,14 @@ Find a better way than just setting it to a size of 100??
 #sts-logo-hover {
     height: 100px;
 }
+
+body {
+    padding-bottom: 200px;
+}
+
+/* Inserting this collapsed row between two flex items will make 
+ * the flex item that comes after it break to a new row */
+ .break {
+    flex-basis: 100%;
+    height: 0;
+  }
