@@ -6,32 +6,33 @@ timeline = [];
  * cues, but not for targets where we only want one target displayed.
  */
 var target = {
-    type: "image-keyboard-response",
-    stimulus: jsPsych.timelineVariable('target'),
-    choices: [37, 39],
-    on_finish: function(data) {
-      // find a way to make this different, depending on left/right.
-      console.log("image displayed: " + jsPsych.timelineVariable('target',true));
-      var photo = jsPsych.timelineVariable('target',true);
-      var correctDirection = 0;
+  type: "image-keyboard-response",
+  stimulus: jsPsych.timelineVariable('target'),
+  choices: [37, 39],
+  randomize_order: true,
+  on_finish: function(data) {
+    // find a way to make this different, depending on left/right.
+    console.log("image displayed: " + jsPsych.timelineVariable('target',true));
+    var photo = jsPsych.timelineVariable('target',true);
+    var correctDirection = 0;
 
-      // Checks the photo to determine what arrow key is necessary.
-      if (photo == "./img/left_button.jpg") {
-          correctDecision = 37;
-      } else {
-          correctDecision = 39;
-      }
-
-      // Sets data to correct/incorrect depending on user choice.
-      console.log(data);
-      if (data.key_press == correctDecision) {
-        console.log("Correct decision. Setting data to be true.");
-        data.correct = true;
-      } else {
-        console.log("Incorrect decision. Setting data to be false.");
-        data.correct = false;
-      }
+    // Checks the photo to determine what arrow key is necessary.
+    if (photo == "./img/left_button.jpg") {
+        correctDecision = 37;
+    } else {
+        correctDecision = 39;
     }
+
+    // Sets data to correct/incorrect depending on user choice.
+    console.log(data);
+    if (data.key_press == correctDecision) {
+      console.log("Correct decision. Setting data to be true.");
+      data.correct = true;
+    } else {
+      console.log("Incorrect decision. Setting data to be false.");
+      data.correct = false;
+    }
+  }
 }
 
 // Will be set to true after trial runs.
@@ -64,6 +65,10 @@ var fixation = {
   },
   data: {test_part: 'fixation'}
 };
+
+// If given animal (dolphin), press cue
+//  if wrong button --> lose feedback
+//  if correct button --> win feedback
 
 var feedback_node = {
   timeline: [fixation],
