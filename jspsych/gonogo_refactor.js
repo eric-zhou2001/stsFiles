@@ -1,9 +1,66 @@
 timeline = [];
 
 /**
- * Consider changing not to timeline variables but to somethign else. Timeline
- * variables forces the experiment to go through everything. This might be good for
- * cues, but not for targets where we only want one target displayed.
+ * Fixation node. For users to focus on before the next part of
+ * the trial.
+ */
+var fixation = {
+  type: 'html-keyboard-response',
+  stimulus: '<div style="font-size:60px;">+</div>',
+  choices: jsPsych.NO_KEYS,
+  trial_duration: function(){
+    return jsPsych.randomization.sampleWithoutReplacement([250, 500, 750, 1000, 1250, 1500, 1750, 2000], 1)[0];
+  },
+  data: {test_part: 'fixation'}
+};
+
+/**
+ * Cue trial. 
+ * 
+ * Will reach into cue_node and get the timeline variables
+ * titled cues. These will vary and can vary depending on what the
+ * tester wants to implement.
+ * 
+ * Cue_node ensures that it will be a random cue, but also that only
+ * one cue is displayed. This can be varied as well if necessary.
+ */
+var cue = {
+  type: "image-keyboard-response",
+  stimulus: jsPsych.timelineVariable('cue'),
+  choices: jsPsych.NO_KEYS,
+  trial_duration: 1000
+}
+
+var trial_finished_cue = false;
+var cue_node = {
+  timeline: [cue, fixation],
+  randomize_order: true,
+  timeline_variables: [
+    {cue: "img/dolphin.jpg"},
+    {cue: "img/camel.jpg"},
+    {cue: "img/chicken.jpg"},
+    {cue: "img/bear.jpg"}
+  ],
+  conditional_function: () => {
+    if (trial_finished_cue) {
+      console.log("Trial has finished.");
+      trial_finished_cue = false;
+      return false;
+    } else {
+      console.log("Trial has not occured yet.");
+      trial_finished_cue = true;
+      return true;
+    }
+  }
+}
+
+/**
+ * Target information. 
+ * 
+ * Very similar to the cue information. This time, the target is
+ * randomized and the user needs to press the left or right arrow
+ * depending on the target value. If the user answers it correctly,
+ * the data is set to correct. Otherwise, the data is set to false.
  */
 var target = {
   type: "image-keyboard-response",
@@ -34,7 +91,6 @@ var target = {
   }
 }
 
-// Will be set to true after trial runs.
 var trial_finished_target = false;
 var target_node = {
     timeline: [target],
@@ -56,19 +112,13 @@ var target_node = {
     }
 }   
 
-var fixation = {
-  type: 'html-keyboard-response',
-  stimulus: '<div style="font-size:60px;">+</div>',
-  choices: jsPsych.NO_KEYS,
-  trial_duration: function(){
-    return jsPsych.randomization.sampleWithoutReplacement([250, 500, 750, 1000, 1250, 1500, 1750, 2000], 1)[0];
-  },
-  data: {test_part: 'fixation'}
-};
-
-// If given animal (dolphin), press cue
-//  if wrong button --> lose feedback
-//  if correct button --> win feedback
+/**
+ * Feedback information. 
+ * 
+ * Checks the user response, and will return true/false depending
+ * on that. Another interesting parameter: only 80% of the time will the
+ * feedback be displayed. Not a perfect 80% catch rate, but very close.
+ */
 var correct_feedback = {
   type: "image-keyboard-response",
   stimulus: "./img/thumb_up.png",
@@ -83,7 +133,10 @@ var feedback_correct_node = {
     // .last gets the last 2 results (target, fixation). [0] returns the 
     // target, which we need to access the result of.
     var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
-    var random = Math.random() * 10; // Check the exact chance. 
+    var random = Math.random(); 
+    while (random < 1) {
+      random = Math.random() * 10; // Check the exact chance.
+    }
     console.log(random);
     if (random < 8 && last_trial_correct) {
         console.log("Adding to timeline. Correct node");
@@ -108,13 +161,16 @@ var feedback_incorrect_node = {
     // .last gets the last 2 results (target, fixation). [0] returns the 
     // target, which we need to access the result of.
     var last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
-    var random = Math.random() * 10; // Check the exact chance.
+    var random = Math.random(); 
+    while (random < 1) {
+      random = Math.random() * 10; // Check the exact chance.
+    }
     console.log(random);
     if (last_trial_correct === undefined || last_trial_correct) {
       console.log("Previous trial was correct. Don't display the incorrect node.");
       return false;
     } else if (random < 8) {
-      console.log("display the node.");
+      console.log("display the feedback for incorrect choice.");
       return true;
     } else {
       console.log("20%, do not display.");
@@ -123,7 +179,16 @@ var feedback_incorrect_node = {
   }
 }
 
-timeline.push(target_node, feedback_correct_node, feedback_incorrect_node);
+/**
+ * Procedure variable. Change the repetitions depending on the choice
+ * of the adminstrator of the test.
+ */
+var procedure = {
+  timeline: [cue_node, target_node, feedback_correct_node, feedback_incorrect_node],
+  repetitions: 2,
+}
+
+timeline.push(procedure);
 
 jsPsych.init({
     timeline: timeline,
